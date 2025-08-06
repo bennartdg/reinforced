@@ -120,6 +120,22 @@ if st.session_state.page == "home":
     </div>
     <br>
     """, unsafe_allow_html=True)
+
+    st.markdown("---")
+    st.markdown("### 📘 Langkah Penilaian")
+    st.markdown("""
+1. Ketik ***Nama Lengkap*** Anda pada sisi kiri tampilan (Sidebar) hingga saran nama Anda muncul  
+(Apabila nama anda tidak ditemukan, harap diabaikan dan tidak perlu melanjutkan penilaian).
+2. Pilih nama anda yang muncul pada saran yang diberikan.
+3. Tekan tombol ***Temukan Rekomendasi***, lalu tunggu hingga tampilan selesai memuat.
+4. Gulir tampilan ke ***Bawah*** hingga menunjukkan daftar rekomendasi peneliti untuk Anda
+5. Berikan penilaian dengan memilih nilai 5-1 (Sangat setuju - Sangat tidak setuju), untuk setiap Rekomendasi yang diberikan.
+6. Isi komentar anda terhadap Rekomendasi yang diberikan dapat mengikuti contoh yang ditampilkan.
+7. Tekan tombol ***Simpan Penilaian***, sistem akan memberikan tanda apabila anda sudah selesai memberikan penilaian.
+8. Proses pemberian penilaian selesai dilakukan, Terima kasih sudah mengikuti langkah ini dengan baik.
+
+Steadfast with the REINFORCED Mind!
+""")
     
     # Tombol untuk pindah halaman
     
