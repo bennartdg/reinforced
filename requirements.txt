@@ -1,0 +1,7 @@
+streamlit
+pandas
+neo4j
+pyvis
+numpy
+torch
+networkx
