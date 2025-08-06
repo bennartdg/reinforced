@@ -325,7 +325,7 @@ elif st.session_state.page == "recommendation":
                         "Nilai": nilai,
                         "Komentar": komentar.strip() if komentar else ""  # satu komentar yang berlaku untuk semua
                     }
-                    for nama, nilai, komentar in penilaian_user.items()
+                    for nama, nilai in penilaian_user.items()
                 ])
 
                 from datetime import datetime
@@ -408,6 +408,13 @@ elif st.session_state.page == "hasil_evaluasi":
             for i, nilai in enumerate(nilai_list):
                 row[f"R{i+1}"] = nilai
             row["Rata-rata"] = round(sum(nilai_list) / len(nilai_list), 1)
+
+            # Ambil komentar dari baris pertama (jika kolom 'Komentar' ada)
+            if "Komentar" in df.columns:
+                komentar = df.loc[0, "Komentar"]
+                row["Komentar"] = komentar
+            else:
+                row["Komentar"] = "-"
             
             data_rows.append(row)
 
@@ -431,6 +438,7 @@ elif st.session_state.page == "hasil_evaluasi":
         for i in range(1, 6):
             row_total[f"R{i}"] = ""
         row_total["Rata-rata"] = round(rata_rata_total, 2)
+        row_total["Komentar"] = "-"
 
         df_tabel.loc[len(df_tabel)] = row_total
         
