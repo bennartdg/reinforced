@@ -300,7 +300,7 @@ elif st.session_state.page == "recommendation":
             st.markdown("<br>", unsafe_allow_html=True)
 
         # Text area untuk komentar umum
-        komentar = st.text_area("📝 Komentar Anda terhadap Rekomendasi", placeholder="Tulis komentar Anda di sini...")
+        komentar = st.text_area("📝 Komentar Anda terhadap Rekomendasi", placeholder="Contoh: Rekomendasi 1 kurang baik karena peneliti yang direkomendasikan kurang sesuai dengan bidang penelitian saya, Rekomendasi 2 Baik karena saya memiliki bidang penelitian yang sama, dst.")
 
         # Tombol simpan
         if st.button("💾 Simpan Penilaian"):
