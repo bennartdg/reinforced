@@ -300,7 +300,7 @@ elif st.session_state.page == "recommendation":
             st.markdown("<br>", unsafe_allow_html=True)
 
         # Text area untuk komentar umum
-        komentar = st.text_area("###📝 Komentar Anda terhadap Rekomendasi", placeholder="Tulis komentar Anda di sini...")
+        komentar = st.text_area("📝 Komentar Anda terhadap Rekomendasi", placeholder="Tulis komentar Anda di sini...")
 
         # Tombol simpan
         if st.button("💾 Simpan Penilaian"):
@@ -325,7 +325,7 @@ elif st.session_state.page == "recommendation":
                         "Nilai": nilai,
                         "Komentar": komentar.strip() if komentar else ""  # satu komentar yang berlaku untuk semua
                     }
-                    for nama, nilai in penilaian_user.items()
+                    for nama, nilai, komentar in penilaian_user.items()
                 ])
 
                 from datetime import datetime
