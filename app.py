@@ -90,19 +90,19 @@ if st.session_state.page == "home":
             go_to_hasil_evaluasi()
     # ? Sidebar End
     
-    reinforced_ascii = """
-██████╗ ███████╗██╗███╗   ██╗███████╗ ██████╗ ██████╗  ██████╗███████╗██████╗ 
-██╔══██╗██╔════╝██║████╗  ██║██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔════╝██╔══██╗
-██████╔╝█████╗  ██║██╔██╗ ██║█████╗  ██║   ██║██████╔╝██║     █████╗  ██║  ██║
-██╔══██╗██╔══╝  ██║██║╚██╗██║██╔══╝  ██║   ██║██╔══██╗██║     ██╔══╝  ██║  ██║
-██║  ██║███████╗██║██║ ╚████║██║     ╚██████╔╝██║  ██║╚██████╗███████╗██████╔╝
-╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═══╝╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝╚══════╝╚═════╝ 
-"""
-    st.code(reinforced_ascii)
-            # <div style="color:#00aaff; font-weight:bold; font-size: 120px; line-height: 0.8; margin-bottom: 10px;">
-            #     REINFORCED
-            # </div>
+#     reinforced_ascii = """
+# ██████╗ ███████╗██╗███╗   ██╗███████╗ ██████╗ ██████╗  ██████╗███████╗██████╗ 
+# ██╔══██╗██╔════╝██║████╗  ██║██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔════╝██╔══██╗
+# ██████╔╝█████╗  ██║██╔██╗ ██║█████╗  ██║   ██║██████╔╝██║     █████╗  ██║  ██║
+# ██╔══██╗██╔══╝  ██║██║╚██╗██║██╔══╝  ██║   ██║██╔══██╗██║     ██╔══╝  ██║  ██║
+# ██║  ██║███████╗██║██║ ╚████║██║     ╚██████╔╝██║  ██║╚██████╗███████╗██████╔╝
+# ╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═══╝╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝╚══════╝╚═════╝ 
+# """
+#     st.code(reinforced_ascii)
     st.markdown("""
+        <div style="color:#00aaff; font-weight:bold; font-size: 120px; line-height: 0.8; margin-bottom: 10px;">
+            REINFORCED
+        </div>
         <div style="padding: 0; margin: 0;">
             <div style="font-size:20px; line-height: 1.4;">
                 ATT<span style="color:#00aaff; font-weight:bold;">R</span>IBUTED N<span style="color:#00aaff; font-weight:bold;">E</span>TWORK EMBEDD<span style="color:#00aaff; font-weight:bold;">I</span>NG OF KNOWLEDGE GRAPH AND ONTOLOGY BASED
@@ -299,6 +299,9 @@ elif st.session_state.page == "recommendation":
             
             st.markdown("<br>", unsafe_allow_html=True)
 
+        # Text area untuk komentar umum
+        komentar = st.text_area("📝 Komentar Anda terhadap Rekomendasi", placeholder="Tulis komentar Anda di sini...")
+
         # Tombol simpan
         if st.button("💾 Simpan Penilaian"):
             penilaian_user = {}
@@ -357,28 +360,28 @@ elif st.session_state.page == "hasil_evaluasi":
     
     # ! MAIN
     # Evaluasi
-    eval_result = evaluation()
-    top_k = 5
+    # eval_result = evaluation()
+    # top_k = 5
 
-    st.markdown(f"""### 📊 Evaluasi Model Rekomendasi Top-{top_k}""")
-    st.markdown(
-        f"""
-        **True Positive:** {eval_result['tp']} (Direkomendasikan dan sudah pernah berkolaborasi)<br>
-        **False Positive:** {eval_result['fp']} (Direkomendasikan tetapi belum pernah berkolaborasi)<br>
-        **False Negative:** {eval_result['fn']} (Tidak direkomendasikan tetapi sudah pernah berkolaborasi)
-        """,
-        unsafe_allow_html=True
-    )
-    st.markdown(
-        f"""
-        **Precision@{top_k}:** {eval_result['precision']:.4f}<br>
-        **Recall@{top_k}:** {eval_result['recall']:.4f}<br>
-        **F1 Score@{top_k}:** {eval_result['f1_score']:.4f}
-        """,
-        unsafe_allow_html=True
-    )
+    # st.markdown(f"""### 📊 Evaluasi Model Rekomendasi Top-{top_k}""")
+    # st.markdown(
+    #     f"""
+    #     **True Positive:** {eval_result['tp']} (Direkomendasikan dan sudah pernah berkolaborasi)<br>
+    #     **False Positive:** {eval_result['fp']} (Direkomendasikan tetapi belum pernah berkolaborasi)<br>
+    #     **False Negative:** {eval_result['fn']} (Tidak direkomendasikan tetapi sudah pernah berkolaborasi)
+    #     """,
+    #     unsafe_allow_html=True
+    # )
+    # st.markdown(
+    #     f"""
+    #     **Precision@{top_k}:** {eval_result['precision']:.4f}<br>
+    #     **Recall@{top_k}:** {eval_result['recall']:.4f}<br>
+    #     **F1 Score@{top_k}:** {eval_result['f1_score']:.4f}
+    #     """,
+    #     unsafe_allow_html=True
+    # )
     
-    st.divider()
+    # st.divider()
     
     folder_path = "penilaian"
     csv_files = glob.glob(os.path.join(folder_path, "*.csv"))
