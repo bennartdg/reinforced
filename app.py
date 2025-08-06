@@ -460,4 +460,23 @@ elif st.session_state.page == "hasil_evaluasi":
         st.dataframe(df_tabel, use_container_width=True, hide_index=True)
     else:
         st.warning("⚠️ Belum ada file penilaian ditemukan.")
+
+    import os
+    import glob
+
+    folder_path = "penilaian"
+    csv_files = glob.glob(os.path.join(folder_path, "*.csv"))
+
+    st.markdown("## 🗑️ Hapus File Penilaian")
+
+    for file in csv_files:
+        nama_file = os.path.basename(file)
+        col1, col2 = st.columns([0.8, 0.2])
+        with col1:
+            st.write(nama_file)
+        with col2:
+            if st.button(f"Hapus", key=nama_file):
+                os.remove(file)
+                st.success(f"✅ {nama_file} telah dihapus.")
+                st.experimental_rerun()
     # ! MAIN
