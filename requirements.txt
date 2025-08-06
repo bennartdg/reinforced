@@ -5,3 +5,4 @@ pyvis
 numpy
 torch
 networkx
+scikit-learn
