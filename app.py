@@ -123,7 +123,7 @@ if st.session_state.page == "home":
     st.markdown("---")
     st.markdown("### 📘 Langkah Penilaian")
     st.markdown("""
-1. Ketik **Nama Lengkap** Anda pada sisi kiri tampilan (Sidebar) hingga saran nama Anda muncul  
+1. Ketik **Nama Lengkap** Anda pada sisi kiri tampilan (Sidebar) hingga saran nama Anda muncul pada kolom **Cari Nama Peneliti**.  
 (Apabila nama anda tidak ditemukan, harap diabaikan dan tidak perlu melanjutkan penilaian).
 2. Pilih nama Anda yang muncul pada saran yang diberikan.
 3. Tekan tombol **Temukan Rekomendasi**, lalu tunggu hingga tampilan selesai memuat.
