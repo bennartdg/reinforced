@@ -478,5 +478,5 @@ elif st.session_state.page == "hasil_evaluasi":
             if st.button(f"Hapus", key=nama_file):
                 os.remove(file)
                 st.success(f"✅ {nama_file} telah dihapus.")
-                st.experimental_rerun()
+                st.rerun()
     # ! MAIN
