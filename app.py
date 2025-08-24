@@ -490,22 +490,45 @@ elif st.session_state.page == "hasil_evaluasi":
         ]
 
         df_hardcode = pd.DataFrame(data, columns=["Peneliti Target", "Department", "R1", "R2", "R3", "R4", "R5"])
-        
-        # Hitung rata-rata per baris
-        df_hardcode["Rata-rata"] = df_hardcode[["R1","R2","R3","R4","R5"]].mean(axis=1).round(2)
-
-        # Tambahkan total rata-rata di bawah
-        total_avg = df_hardcode["Rata-rata"].mean().round(2)
-        row_total = {
-            "Peneliti Target": "TOTAL",
-            "Department": "-",
-            "R1": "", "R2": "", "R3": "", "R4": "", "R5": "",
-            "Rata-rata": total_avg
-        }
-        df_hardcode.loc[len(df_hardcode)] = row_total
 
         st.dataframe(df_hardcode, use_container_width=True, hide_index=True)
+        # ----------------------
+        # Hitung Precision@5 dan MAP@5
+        # ----------------------
+        precision_list = []
+        ap_list = []
 
+        for _, row in df_hardcode.iterrows():
+            ratings = [row["R1"], row["R2"], row["R3"], row["R4"], row["R5"]]
+
+            # relevan = nilai >= 4
+            relevan = [1 if r >= 4 else 0 for r in ratings]
+
+            # Precision@5 = jumlah relevan / 5
+            precision = sum(relevan) / len(relevan)
+            precision_list.append(precision)
+
+            # AP@5 = (1/r) * Σ Precision@k * rel(k)
+            r = sum(relevan)
+            if r > 0:
+                prec_at_k = []
+                rel_count = 0
+                for k in range(1, 6):
+                    if relevan[k-1] == 1:
+                        rel_count += 1
+                        prec_at_k.append(rel_count / k)
+                ap = sum(prec_at_k) / r
+            else:
+                ap = 0
+            ap_list.append(ap)
+
+        # MAP@5 = rata-rata AP@5
+        map_at_5 = sum(ap_list) / len(ap_list)
+
+        st.markdown("### 📊 Hasil Perhitungan Metrik")
+        st.write(f"**Precision@5:** {round(sum(precision_list)/len(precision_list), 3)}")
+        st.write(f"**MAP@5:** {round(map_at_5, 3)}")
+    
     # ! DELETE
     # import os
     # import glob
