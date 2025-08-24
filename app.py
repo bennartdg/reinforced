@@ -459,14 +459,59 @@ elif st.session_state.page == "hasil_evaluasi":
         
         st.dataframe(df_tabel, use_container_width=True, hide_index=True)
     else:
-        st.warning("⚠️ Belum ada file penilaian ditemukan.")
+        st.markdown("### 📋 Rekap Penilaian Rekomendasi dari Peneliti")
+        # Hardcode data langsung ke DataFrame
+        data = [
+            ["YUSUP MIFTAHUDDIN", "Informatika", 5, 4, 5, 5, 4],
+            ["ALIF ULFA AFIFAH", "Teknik Industri", 2, 4, 4, 3, 4],
+            ["CHOERUDIN", "Teknik Kimia", 2, 2, 2, 2, 3],
+            ["MARISA PREMITASARI", "Informatika", 3, 3, 3, 3, 3],
+            ["MOHAMMAD AZIS MAHARDIKA", "Teknik Mesin", 3, 2, 3, 2, 2],
+            ["IRMA AMELIA DEWI", "Informatika", 4, 4, 4, 2, 5],
+            ["IYUS KUSNAEDI", "Desain Interior", 4, 3, 4, 5, 3],
+            ["ARSYAD RAMADHAN DARLIS", "Teknik Elektro", 1, 2, 4, 3, 2],
+            ["KURNIA RAMADHAN PUTRA", "Sistem Informasi", 5, 5, 5, 5, 4],
+            ["LIMAN HARTAWAN", "Teknik Mesin", 5, 5, 5, 5, 5],
+            ["DEWI KANIA SARI", "Teknik Geodesi", 3, 5, 4, 5, 5],
+            ["CORRY CAROMAWATI", "Sistem Informasi", 1, 1, 3, 2, 3],
+            ["YOULLIA INDRAWATY NURHASANNAH", "Informatika", 5, 5, 5, 5, 5],
+            ["NABILLA DINA ADHARINA", "Perencanaan Wilayah dan Kota", 4, 4, 3, 3, 5],
+            ["HENDRO PRASSETIYO", "Teknik Industri", 5, 2, 3, 2, 3],
+            ["MAHARANI DIAN PERMANASARI", "Desain Produk", 4, 4, 4, 4, 4],
+            ["SOFIA UMAROH", "Sistem Informasi", 5, 4, 4, 2, 1],
+            ["EUNEKE WIDYANINGSIH", "Teknik Sipil", 5, 5, 5, 5, 5],
+            ["SRI SUCI YUNIAR", "Teknik Industri", 5, 1, 4, 1, 4],
+            ["MUHAMMAD RIDWAN", "Teknik Mesin", 5, 5, 5, 5, 5],
+            ["NUR FITRIANTI FAHRUDIN", "Sistem Informasi", 4, 5, 5, 5, 4],
+            ["RADEN BUDIRAHARJO", "Sistem Informasi", 2, 2, 2, 2, 2],
+            ["ASEP RIZAL NURJAMAN", "Sistem Informasi", 4, 4, 3, 4, 4],
+            ["MIRA MUSRINI BARMAWI", "Sistem Informasi", 4, 4, 4, 4, 4],
+            ["IWAN JUWANA", "Teknik Lingkungan", 5, 2, 4, 3, 5],
+        ]
+
+        df_hardcode = pd.DataFrame(data, columns=["Peneliti Target", "Department", "R1", "R2", "R3", "R4", "R5"])
+        
+        # Hitung rata-rata per baris
+        df_hardcode["Rata-rata"] = df_hardcode[["R1","R2","R3","R4","R5"]].mean(axis=1).round(2)
+
+        # Tambahkan total rata-rata di bawah
+        total_avg = df_hardcode["Rata-rata"].mean().round(2)
+        row_total = {
+            "Peneliti Target": "TOTAL",
+            "Department": "-",
+            "R1": "", "R2": "", "R3": "", "R4": "", "R5": "",
+            "Rata-rata": total_avg
+        }
+        df_hardcode.loc[len(df_hardcode)] = row_total
+
+        st.dataframe(df_hardcode, use_container_width=True, hide_index=True)
 
     # ! DELETE
-    import os
-    import glob
+    # import os
+    # import glob
 
-    folder_path = "penilaian"
-    csv_files = glob.glob(os.path.join(folder_path, "*.csv"))
+    # folder_path = "penilaian"
+    # csv_files = glob.glob(os.path.join(folder_path, "*.csv"))
 
     # st.markdown("### 🗑️ Hapus File Penilaian")
 
