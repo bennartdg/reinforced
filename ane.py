@@ -27,30 +27,7 @@ def run_query(query):
         result = session.run(query)
         return pd.DataFrame([r.data() for r in result])
 
-def recommender(name):
-    df_recommendation = df_all_recommendation.copy()
 
-    # Normalisasi nama
-    name = name.strip().lower()
-
-    # Ekstrak kolom nama dan SINTA
-    df_recommendation["Nama"] = df_recommendation["Peneliti"].str.extract(r"^(.*?)\s+\(SINTA:", expand=False).str.strip()
-    df_recommendation["SINTA_ID"] = df_recommendation["Peneliti"].str.extract(r"SINTA:\s*(\d+)", expand=False)
-    df_recommendation["Rekomendasi_Nama"] = df_recommendation["Rekomendasi"].str.extract(r"^(.*?)\s+\(SINTA:", expand=False).str.strip()
-    df_recommendation["Rekomendasi_SINTA_ID"] = df_recommendation["Rekomendasi"].str.extract(r"SINTA:\s*(\d+)", expand=False)
-
-    # Filter berdasarkan nama
-    filtered_df = df_recommendation[df_recommendation["Nama"].str.lower() == name]
-
-    if filtered_df.empty:
-        return pd.DataFrame(columns=[
-            "Nama", "SINTA_ID", "Rekomendasi_Nama", "Rekomendasi_SINTA_ID", "Skor Kemiripan"
-        ])
-
-
-    return filtered_df[[
-        "Nama", "SINTA_ID", "Rekomendasi_Nama", "Rekomendasi_SINTA_ID", "Skor Kemiripan"
-    ]]
 
 def ane():
     import pandas as pd
@@ -381,9 +358,35 @@ def ane():
 
 try:
     df_all_recommendation = ane()
+    st.success("✅ Data rekomendasi berhasil dimuat.")
 except Exception as e:
     df_all_recommendation = None
-    st.error(f"Gagal mengambil data rekomendasi: {e}")
+    st.error(f"❌ Gagal mengambil data rekomendasi: {e}")
+
+def recommender(name):
+    df_recommendation = df_all_recommendation.copy()
+
+    # Normalisasi nama
+    name = name.strip().lower()
+
+    # Ekstrak kolom nama dan SINTA
+    df_recommendation["Nama"] = df_recommendation["Peneliti"].str.extract(r"^(.*?)\s+\(SINTA:", expand=False).str.strip()
+    df_recommendation["SINTA_ID"] = df_recommendation["Peneliti"].str.extract(r"SINTA:\s*(\d+)", expand=False)
+    df_recommendation["Rekomendasi_Nama"] = df_recommendation["Rekomendasi"].str.extract(r"^(.*?)\s+\(SINTA:", expand=False).str.strip()
+    df_recommendation["Rekomendasi_SINTA_ID"] = df_recommendation["Rekomendasi"].str.extract(r"SINTA:\s*(\d+)", expand=False)
+
+    # Filter berdasarkan nama
+    filtered_df = df_recommendation[df_recommendation["Nama"].str.lower() == name]
+
+    if filtered_df.empty:
+        return pd.DataFrame(columns=[
+            "Nama", "SINTA_ID", "Rekomendasi_Nama", "Rekomendasi_SINTA_ID", "Skor Kemiripan"
+        ])
+
+
+    return filtered_df[[
+        "Nama", "SINTA_ID", "Rekomendasi_Nama", "Rekomendasi_SINTA_ID", "Skor Kemiripan"
+    ]]
 
 import re
 from collections import defaultdict
